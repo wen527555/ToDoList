@@ -13,9 +13,21 @@ const generateId = (() => {
 
 function App() {
   const [tasks, setTasks] = useState([
-    { id: generateId(), text: "一天一蘋果，醫生遠離我", completed: false },
-    { id: generateId(), text: "投籃1000次", completed: false },
-    { id: generateId(), text: "完成 pre test作業", completed: true },
+    {
+      id: generateId(),
+      text: "一天一蘋果，醫生遠離我",
+      completed: false,
+    },
+    {
+      id: generateId(),
+      text: "投籃1000次",
+      completed: false,
+    },
+    {
+      id: generateId(),
+      text: "完成 pre test作業",
+      completed: true,
+    },
   ]);
 
   const handleAddTask = (text) => {
@@ -31,7 +43,14 @@ function App() {
   };
 
   const handleDeleteTask = (id) => {
-    setTasks((preTasks) => preTasks.filter((task) => task.id !== id));
+    setTasks((preTasks) =>
+      preTasks.map((task) =>
+        task.id === id ? { ...task, isDeleting: true } : task
+      )
+    );
+    setTimeout(() => {
+      setTasks((preTasks) => preTasks.filter((task) => task.id !== id));
+    }, 2000);
   };
 
   return (

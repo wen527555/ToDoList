@@ -5,7 +5,7 @@ function TaskItem({ tasks, onDelete }) {
   return (
     <>
       {tasks.map((task) => (
-        <ItemContainer key={task.id}>
+        <ItemContainer key={task.id} isDeleting={task.isDeleting}>
           <ItemCheck type="Checkbox" checked={task.completed} />
           <ItemText>{task.text}</ItemText>
           <DeleteIcon onClick={() => onDelete(task.id)} />
@@ -62,6 +62,9 @@ const ItemContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px auto;
+  background-color: ${({ isDeleting }) => (isDeleting ? "#f0f0f0" : "#fff")};
+  opacity: ${({ isDeleting }) => (isDeleting ? 0.5 : 1)};
+  transition: all 0.5s ease;
 `;
 
 const ItemCheck = styled.input`
