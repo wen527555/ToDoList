@@ -1,7 +1,7 @@
 import GlobalStyle from "./styles/globalStyles";
 import Content from "./components/Content";
 import Header from "./components/Header";
-import Progress from "./components/Progress";
+import ProgressBar from "./components/ProgressBar";
 import TodoItem from "./components/TaskItem";
 import TaskInput from "./components/TaskInput";
 import { useState } from "react";
@@ -35,7 +35,7 @@ function App() {
       <GlobalStyle />
       <Header />
       <Content>
-        <Progress />
+        <ProgressBar tasks={tasks} />
         <TodoItem tasks={tasks} onToggle={handleToggleTodo} />
         <TaskInput onAdd={handleAddTask} />
       </Content>
