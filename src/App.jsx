@@ -34,7 +34,7 @@ function App() {
     setTasks([...tasks, { id: generateId(), text, completed: false }]);
   };
 
-  const handleToggleTodo = (id) => {
+  const handleToggleTask = (id) => {
     setTasks(
       tasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
@@ -61,7 +61,7 @@ function App() {
         <ProgressBar tasks={tasks} />
         <TaskItem
           tasks={tasks}
-          onToggle={handleToggleTodo}
+          onToggle={handleToggleTask}
           onDelete={handleDeleteTask}
         />
         <TaskInput onAdd={handleAddTask} />

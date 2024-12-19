@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-function TaskItem({ tasks, onDelete }) {
+function TaskItem({ tasks, onDelete, onToggle }) {
   return (
     <>
       {tasks.map((task) => (
-        <ItemContainer key={task.id} isDeleting={task.isDeleting}>
-          <ItemCheck type="Checkbox" checked={task.completed} />
-          <ItemText>{task.text}</ItemText>
+        <ItemContainer
+          key={task.id}
+          isDeleting={task.isDeleting}
+          completed={task.completed}
+        >
+          <ItemCheck
+            type="Checkbox"
+            checked={task.completed}
+            completed={task.completed}
+            onChange={() => onToggle(task.id)}
+          />
+          <ItemText completed={task.completed}>{task.text}</ItemText>
           <DeleteIcon onClick={() => onDelete(task.id)} />
         </ItemContainer>
       ))}
@@ -54,7 +63,6 @@ DeleteIcon.propTypes = {
 
 const ItemContainer = styled.div`
   border-radius: 8px;
-  border: 1px solid #000000;
   height: 38px;
   width: 100%;
   margin: 16px 0;
@@ -63,14 +71,21 @@ const ItemContainer = styled.div`
   align-items: center;
   padding: 10px auto;
   background-color: ${({ isDeleting }) => (isDeleting ? "#f0f0f0" : "#fff")};
+  border: 1px solid ${(props) => (props.completed ? "#16CB4C" : "#000000")};
   opacity: ${({ isDeleting }) => (isDeleting ? 0.5 : 1)};
   transition: all 0.5s ease;
+  &:hover {
+    background-color: #ececec;
+  }
 `;
 
-const ItemCheck = styled.input`
+const ItemCheck = styled.input.attrs(() => ({
+  type: "checkbox",
+}))`
   width: 16px;
   height: 16px;
   margin-left: 18px;
+  border: 1px solid ${(props) => (props.completed ? "#16CB4C" : "#000000")};
 `;
 
 const ItemText = styled.p`
@@ -79,6 +94,7 @@ const ItemText = styled.p`
   text-align: left;
   flex: 1;
   margin-left: 16px;
+  color: ${(props) => (props.completed ? "#16CB4C" : "#000000")};
 `;
 
 const ItemDelete = styled.button`
