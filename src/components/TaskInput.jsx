@@ -72,7 +72,7 @@ AddTaskButton.propTypes = {
 
 const FormWrapper = styled.form`
   display: flex;
-  margin-top: 20px;
+  margin-top: auto;
   position: relative;
 `;
 

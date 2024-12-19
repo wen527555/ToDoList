@@ -65,7 +65,7 @@ const ItemContainer = styled.div`
   border-radius: 8px;
   height: 38px;
   width: 100%;
-  margin: 16px 0;
+  margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;

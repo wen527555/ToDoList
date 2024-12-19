@@ -7,7 +7,6 @@ const GlobalStyle = createGlobalStyle`
         box-sizing:border-box;
     }
     html,body {
-    height: 100%;
     background-color: #ECECEC; 
     color: #000000;
     font-family: Inter

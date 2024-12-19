@@ -26,4 +26,5 @@ ProgressBar.propTypes = {
 const ProgressContainer = styled.div`
   font-size: 15px;
   font-weight: 400;
+  margin-bottom: 16px;
 `;
