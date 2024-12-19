@@ -2,7 +2,7 @@ import GlobalStyle from "./styles/globalStyles";
 import Content from "./components/Content";
 import Header from "./components/Header";
 import ProgressBar from "./components/ProgressBar";
-import TodoItem from "./components/TaskItem";
+import TaskItem from "./components/TaskItem";
 import TaskInput from "./components/TaskInput";
 import { useState } from "react";
 
@@ -25,9 +25,13 @@ function App() {
   const handleToggleTodo = (id) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, completed: !TodoItem.completed } : task
+        task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
+  };
+
+  const handleDeleteTask = (id) => {
+    setTasks((preTasks) => preTasks.filter((task) => task.id !== id));
   };
 
   return (
@@ -36,7 +40,11 @@ function App() {
       <Header />
       <Content>
         <ProgressBar tasks={tasks} />
-        <TodoItem tasks={tasks} onToggle={handleToggleTodo} />
+        <TaskItem
+          tasks={tasks}
+          onToggle={handleToggleTodo}
+          onDelete={handleDeleteTask}
+        />
         <TaskInput onAdd={handleAddTask} />
       </Content>
     </>

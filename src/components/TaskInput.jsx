@@ -1,17 +1,23 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Spinner } from "../styles/Spinner";
 
 function TaskInput({ onAdd }) {
   const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() === "") {
       alert("請輸入內容！");
       return;
     }
-    onAdd(inputValue);
-    setInputValue("");
+    setLoading(true);
+    setTimeout(() => {
+      onAdd(inputValue);
+      setInputValue("");
+      setLoading(false);
+    }, 2000);
   };
 
   const handleValueChange = (e) => {
@@ -19,23 +25,32 @@ function TaskInput({ onAdd }) {
   };
 
   return (
-    <InputWrapper onSubmit={handleSubmit}>
+    <FormWrapper onSubmit={handleSubmit}>
+      {loading && (
+        <FormOverlay>
+          <Spinner />
+        </FormOverlay>
+      )}
       <Input
         type="text"
         placeholder="請輸入要完成的事項..."
         value={inputValue}
         onChange={handleValueChange}
       />
-      <AddTaskButton />
-    </InputWrapper>
+      <AddTaskButton loading={loading} />
+    </FormWrapper>
   );
 }
 
 export default TaskInput;
 
-function AddTaskButton() {
+TaskInput.propTypes = {
+  onAdd: PropTypes.func.isRequired,
+};
+
+function AddTaskButton({ loading }) {
   return (
-    <ItemAdd type="submit">
+    <ItemAdd type="submit" disabled={loading}>
       <svg
         width="24"
         height="24"
@@ -51,14 +66,27 @@ function AddTaskButton() {
     </ItemAdd>
   );
 }
-
-TaskInput.propTypes = {
-  onAdd: PropTypes.func.isRequired,
+AddTaskButton.propTypes = {
+  loading: PropTypes.bool.isRequired,
 };
 
-const InputWrapper = styled.form`
+const FormWrapper = styled.form`
   display: flex;
   margin-top: 20px;
+  position: relative;
+`;
+
+const FormOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
 `;
 
 const Input = styled.input`
@@ -70,4 +98,5 @@ const Input = styled.input`
 
 const ItemAdd = styled.button`
   margin-left: 8px;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;

@@ -1,18 +1,14 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-function TaskItem({ tasks, onToggle }) {
+function TaskItem({ tasks, onDelete }) {
   return (
     <>
       {tasks.map((task) => (
         <ItemContainer key={task.id}>
-          <ItemCheck
-            type="Checkbox"
-            checked={task.completed}
-            onChange={() => onToggle(task.id)}
-          />
+          <ItemCheck type="Checkbox" checked={task.completed} />
           <ItemText>{task.text}</ItemText>
-          <DeleteIcon />
+          <DeleteIcon onClick={() => onDelete(task.id)} />
         </ItemContainer>
       ))}
     </>
@@ -21,9 +17,21 @@ function TaskItem({ tasks, onToggle }) {
 
 export default TaskItem;
 
-function DeleteIcon() {
+TaskItem.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+function DeleteIcon({ onClick }) {
   return (
-    <ItemDelete>
+    <ItemDelete onClick={onClick} aria-label="刪除" title="刪除">
       <svg
         width="16"
         height="18"
@@ -40,15 +48,8 @@ function DeleteIcon() {
   );
 }
 
-TaskItem.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired,
-    })
-  ).isRequired,
-  onToggle: PropTypes.func.isRequired,
+DeleteIcon.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 const ItemContainer = styled.div`
