@@ -4,31 +4,40 @@ import Header from "./components/Header";
 import ProgressBar from "./components/ProgressBar";
 import TaskItem from "./components/TaskItem";
 import TaskInput from "./components/TaskInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const generateId = (() => {
   let id = 0;
   return () => id++;
 })();
 
+const defaultTasks = [
+  {
+    id: generateId(),
+    text: "一天一蘋果，醫生遠離我",
+    completed: false,
+  },
+  {
+    id: generateId(),
+    text: "投籃1000次",
+    completed: false,
+  },
+  {
+    id: generateId(),
+    text: "完成 pre test作業",
+    completed: true,
+  },
+];
+
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: generateId(),
-      text: "一天一蘋果，醫生遠離我",
-      completed: false,
-    },
-    {
-      id: generateId(),
-      text: "投籃1000次",
-      completed: false,
-    },
-    {
-      id: generateId(),
-      text: "完成 pre test作業",
-      completed: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks"));
+    return savedTasks || defaultTasks;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleAddTask = (text) => {
     setTasks([...tasks, { id: generateId(), text, completed: false }]);
