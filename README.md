@@ -2,9 +2,7 @@
 
 **Link:** [https://wen527555.github.io/ToDoList/](https://wen527555.github.io/ToDoList/)
 
----
-
-## Basic Features
+### Basic Features
 
 - **Add new tasks**
 
@@ -14,9 +12,7 @@
 
 - **Task completion**
 
----
-
-## Bonus Features
+### Bonus Features
 
 - **i18n Support**
 
