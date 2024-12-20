@@ -16,16 +16,19 @@ const defaultTasks = [
     id: generateId(),
     text: "一天一蘋果，醫生遠離我",
     completed: false,
+    isEditing: false,
   },
   {
     id: generateId(),
     text: "投籃1000次",
     completed: false,
+    isEditing: false,
   },
   {
     id: generateId(),
     text: "完成 pre test作業",
     completed: true,
+    isEditing: false,
   },
 ];
 
@@ -62,6 +65,14 @@ function App() {
     }, 2000);
   };
 
+  const handleEditTask = (id, newText) => {
+    setTasks((preTasks) =>
+      preTasks.map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -72,6 +83,7 @@ function App() {
           tasks={tasks}
           onToggle={handleToggleTask}
           onDelete={handleDeleteTask}
+          onEdit={handleEditTask}
         />
         <TaskInput onAdd={handleAddTask} />
       </Content>
