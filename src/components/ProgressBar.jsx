@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 function ProgressBar({ tasks }) {
+  const { t } = useTranslation();
   const completed = tasks.filter((task) => task.completed).length;
   const total = tasks.length;
   return (
     <ProgressContainer>
-      進度：{completed}/{total}
+      {t("progress")}：{completed}/{total}
     </ProgressContainer>
   );
 }
