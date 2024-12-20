@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 function EditMode({ onSave, onCancel, editText, onChange }) {
+  const { t } = useTranslation();
   return (
     <EditContainer>
       <EditInput type="text" value={editText} onChange={onChange} />
       <ButtonWrapper>
-        <EditButton onClick={onSave}>Save</EditButton>
-        <EditButton onClick={onCancel}>Cancel</EditButton>
+        <EditButton onClick={onSave}>{t("save")}</EditButton>
+        <EditButton onClick={onCancel}>{t("cancel")}</EditButton>
       </ButtonWrapper>
     </EditContainer>
   );
@@ -54,7 +56,7 @@ const EditButton = styled.button`
   background-color: #0071ff;
   color: white;
   cursor: pointer;
-
+  height: 30px;
   &:hover {
     background-color: #ececec;
     color: black;

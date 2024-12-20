@@ -146,6 +146,22 @@ const ItemCheck = styled.input.attrs(() => ({
   height: 16px;
   margin-left: 18px;
   border: 1px solid ${(props) => (props.completed ? "#16CB4C" : "#000000")};
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+
+  &:checked::after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 10px;
+    border: solid #16cb4c;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    position: relative;
+    left: 3px;
+    bottom: 0px;
+  }
 `;
 
 const ItemText = styled.p`

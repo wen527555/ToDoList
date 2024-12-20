@@ -2,10 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Spinner } from "../styles/Spinner";
+import { useTranslation } from "react-i18next";
 
 function TaskInput({ onAdd }) {
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() === "") {
@@ -33,7 +35,7 @@ function TaskInput({ onAdd }) {
       )}
       <Input
         type="text"
-        placeholder="請輸入要完成的事項..."
+        placeholder={t("placeholder_input")}
         value={inputValue}
         onChange={handleValueChange}
       />
